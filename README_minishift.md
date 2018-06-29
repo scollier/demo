@@ -12,23 +12,46 @@ sudo -i
 
 #### Enable nesting and label your node.
 
-You may need to use software emulation:
+You may need to use software emulation.
 
 ```
 oc create configmap -n kube-system kubevirt-config --from-literal debug.allowEmulation=true
+```
+
+Label your node so the virt-launcher pod can be scheduled correctly.
+
+```
 oc label node localhost kubevirt.io/schedulable=true
 ```
 
-#### Install KubeVirt
+#### Log into OpenShift
 
 ```
 oc login -u system:admin
+```
 
+
+#### Install KubeVirt
+
+In this section, download the `kubevirt.yaml` file and explore it.  Then, apply it from the upstream github repo.
+
+```
 export VERSION=v0.7.0-alpha.2
+```
+
+Grab the kubevirt.yaml file to explore.
+
+```
+wget https://github.com/kubevirt/kubevirt/releases/download/$VERSION/kubevirt.yaml
+```
+
+Install KubeVirt
+ 
+```
 oc apply -f https://github.com/kubevirt/kubevirt/releases/download/$VERSION/kubevirt.yaml
 ```
 
-Define the following policies:
+Define the following policies for OpenShift.
 
 ```
 oc adm policy add-scc-to-user privileged -n kube-system -z kubevirt-privileged

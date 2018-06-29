@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/kubevirt/demo.svg?branch=master)](https://travis-ci.org/kubevirt/demo)
 
-# KubeVirt on top of minishift Demo
+# KubeVirt on top of OpenShift Demo
 
 This demo will deploy [KubeVirt](https://www.kubevirt.io) on top of [Minishift v1.17.0](https://www.openshift.org/minishift/).
 

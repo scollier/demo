@@ -53,8 +53,8 @@ configmap "kubevirt-config" created
 ```
 $ oc login -u system:admin
 
-$ export VERSION=v0.7.0-alpha.1
-$ kubectl apply -f https://github.com/kubevirt/kubevirt/releases/download/$VERSION/kubevirt.yaml
+$ export VERSION=v0.7.0-alpha.2
+$ oc apply -f https://github.com/kubevirt/kubevirt/releases/download/$VERSION/kubevirt.yaml
 ```
 
 Define the following policies:
@@ -70,17 +70,15 @@ oc adm policy add-scc-to-user privileged -n kube-system -z kubevirt-apiserver
 This tool provides quick access to the serial and graphical ports of a VM, and handle start/stop operations.
 
 ```
-$ export VERSION=v0.5.0
 $ curl -L -o virtctl https://github.com/kubevirt/kubevirt/releases/download/$VERSION/virtctl-$VERSION-linux-amd64
 $ chmod +x virtctl
 ```
 
 
 #### Create an Offline  VM
-Note: Install `kubectl` via a [package manager](https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-binary-via-native-package-management) or [download](https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-binary-via-curl) it
 
 ```
-$ kubectl apply -f https://raw.githubusercontent.com/kubevirt/demo/master/manifests/vm.yaml
+$ oc apply -f https://raw.githubusercontent.com/kubevirt/demo/master/manifests/vm.yaml
 ```
 
 
@@ -88,8 +86,8 @@ $ kubectl apply -f https://raw.githubusercontent.com/kubevirt/demo/master/manife
 
 To get a list of existing offline Virtual Machines:
 ```
-$ oc get ovms
-$ oc get ovms -o yaml testvm
+$ oc get vms
+$ oc get vms -o yaml testvm
 ```
 
 To start an offline VM you can use:
@@ -110,7 +108,7 @@ $ ./virtctl stop testvm
 
 To delete an offline Virtual Machine:
 ```
-$ oc delete ovms testvm
+$ oc delete vms testvm
 ```
 
 #### Accessing VMs (serial console & spice)

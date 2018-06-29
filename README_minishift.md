@@ -4,22 +4,28 @@
 
 This demo will deploy [KubeVirt](https://www.kubevirt.io) on top of [Minishift v1.17.0](https://www.openshift.org/minishift/).
 
-#### Enable nesting
+#### Sudo to the root user
+
+```
+sudo -i
+```
+
+#### Enable nesting and label your node.
 
 You may need to use software emulation:
 
 ```
-$ oc create configmap -n kube-system kubevirt-config --from-literal debug.allowEmulation=true
-configmap "kubevirt-config" created
+oc create configmap -n kube-system kubevirt-config --from-literal debug.allowEmulation=true
+oc label node localhost kubevirt.io/schedulable=true
 ```
 
 #### Install KubeVirt
 
 ```
-$ oc login -u system:admin
+oc login -u system:admin
 
-$ export VERSION=v0.7.0-alpha.2
-$ oc apply -f https://github.com/kubevirt/kubevirt/releases/download/$VERSION/kubevirt.yaml
+export VERSION=v0.7.0-alpha.2
+oc apply -f https://github.com/kubevirt/kubevirt/releases/download/$VERSION/kubevirt.yaml
 ```
 
 Define the following policies:
@@ -35,15 +41,15 @@ oc adm policy add-scc-to-user privileged -n kube-system -z kubevirt-apiserver
 This tool provides quick access to the serial and graphical ports of a VM, and handle start/stop operations.
 
 ```
-$ curl -L -o virtctl https://github.com/kubevirt/kubevirt/releases/download/$VERSION/virtctl-$VERSION-linux-amd64
-$ chmod +x virtctl
+curl -L -o virtctl https://github.com/kubevirt/kubevirt/releases/download/$VERSION/virtctl-$VERSION-linux-amd64
+chmod +x virtctl
 ```
 
 
 #### Create an Offline  VM
 
 ```
-$ oc apply -f https://raw.githubusercontent.com/kubevirt/demo/master/manifests/vm.yaml
+oc apply -f https://raw.githubusercontent.com/kubevirt/demo/master/manifests/vm.yaml
 ```
 
 
@@ -51,29 +57,29 @@ $ oc apply -f https://raw.githubusercontent.com/kubevirt/demo/master/manifests/v
 
 To get a list of existing offline Virtual Machines:
 ```
-$ oc get vms
-$ oc get vms -o yaml testvm
+oc get vms
+oc get vms -o yaml testvm
 ```
 
 To start an offline VM you can use:
 ```
-$ ./virtctl start testvm
+./virtctl start testvm
 ```
 
 To get a list of existing virtual machines:
 ```
-$ oc get vms
-$ oc get vms -o yaml testvm
+oc get vms
+oc get vms -o yaml testvm
 ```
 
 To shut it down again:
 ```
-$ ./virtctl stop testvm
+./virtctl stop testvm
 ```
 
 To delete an offline Virtual Machine:
 ```
-$ oc delete vms testvm
+oc delete vms testvm
 ```
 
 #### Accessing VMs (serial console & spice)
@@ -81,18 +87,21 @@ $ oc delete vms testvm
 Connect to the serial console
 
 ```
-$ ./virtctl console testvm
+./virtctl console testvm
 ```
 
 Connect to the graphical display
 Note: Requires `remote-viewer` from the `virt-viewer` package.
 ```
-$ ./virtctl vnc testvm
+./virtctl vnc testvm
 ```
 
 
 #### Appendix:
 
 Install kvm driver if not exists:
-```$  yum install -y qemu-kvm```
+```
+yum install -y qemu-kvm
+```
+
  

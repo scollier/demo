@@ -4,44 +4,9 @@
 
 This demo will deploy [KubeVirt](https://www.kubevirt.io) on top of [Minishift v1.17.0](https://www.openshift.org/minishift/).
 
-#### Install Minishift
-
-Download the archive for your operating system from the Minishift Releases page (https://github.com/minishift/minishift/releases) and extract its contents.
-
-Copy the contents of the directory to your preferred location and add the minishift binary to your PATH environment variable.
-
-
-#### Start Minishift
-```
-$ minishift start
-```
-
-You should expect to see the following:
-
-```
--- Starting local OpenShift cluster using 'kvm' hypervisor...
-...
-   OpenShift server started.
-   The server is accessible via web console at:
-       https://192.168.99.128:8443
-
-   You are logged in as:
-       User:     developer
-       Password: developer
-
-   To login as administrator:
-       oc login -u system:admin
-
-Note: for further information please see https://docs.openshift.org/latest/minishift/getting-started/quickstart.html
-```
-
-Note: In case you get the following error: "...Hit github rate limit: GET https://api.github.com/repos/openshift/origin/releases: 403 API rate limit exceeded...", do the following:
-1) goto your account setting in GitHub -> Developer settings -> Personal access tokens, and create a new token.
-2) export this token: export MINISHIFT_GITHUB_API_TOKEN=<the token id you generated>
-
 #### Enable nesting
 
-minishift does not support nesting, thus we need to use software emulation:
+You may need to use software emulation:
 
 ```
 $ oc create configmap -n kube-system kubevirt-config --from-literal debug.allowEmulation=true

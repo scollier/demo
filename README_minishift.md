@@ -18,10 +18,11 @@ You may need to use software emulation.
 oc create configmap -n kube-system kubevirt-config --from-literal debug.allowEmulation=true
 ```
 
-Label your node so the virt-launcher pod can be scheduled correctly.
+Label your node so the virt-launcher pod can be scheduled correctly. Confirm the label was applied.
 
 ```
 oc label node localhost kubevirt.io/schedulable=true
+oc get nodes --show-labels
 ```
 
 #### Log into OpenShift
@@ -43,6 +44,7 @@ Grab the kubevirt.yaml file to explore.
 
 ```
 wget https://github.com/kubevirt/kubevirt/releases/download/$VERSION/kubevirt.yaml
+less kubevirt.yaml
 ```
 
 Install KubeVirt
@@ -65,11 +67,20 @@ This tool provides quick access to the serial and graphical ports of a VM, and h
 
 ```
 curl -L -o virtctl https://github.com/kubevirt/kubevirt/releases/download/$VERSION/virtctl-$VERSION-linux-amd64
-chmod +x virtctl
+chmod -v +x virtctl
 ```
 
 
 #### Create an Offline  VM
+
+Download the VM manifest and explore it.
+
+```
+wget https://raw.githubusercontent.com/kubevirt/demo/master/manifests/vm.yaml
+less vm.yaml
+```
+
+Apply the manifest to OpenShift.
 
 ```
 oc apply -f https://raw.githubusercontent.com/kubevirt/demo/master/manifests/vm.yaml
@@ -78,31 +89,24 @@ oc apply -f https://raw.githubusercontent.com/kubevirt/demo/master/manifests/vm.
 
 #### Manage Virtual Machines (optional):
 
-To get a list of existing offline Virtual Machines:
+To get a list of existing offline Virtual Machines. Note the `running` status.
+
 ```
 oc get vms
 oc get vms -o yaml testvm
 ```
 
 To start an offline VM you can use:
+
 ```
 ./virtctl start testvm
 ```
 
-To get a list of existing virtual machines:
+To get a list of existing virtual machines. Note the `running` status.
+
 ```
 oc get vms
 oc get vms -o yaml testvm
-```
-
-To shut it down again:
-```
-./virtctl stop testvm
-```
-
-To delete an offline Virtual Machine:
-```
-oc delete vms testvm
 ```
 
 #### Accessing VMs (serial console & spice)
@@ -119,6 +123,19 @@ Note: Requires `remote-viewer` from the `virt-viewer` package.
 ./virtctl vnc testvm
 ```
 
+### Controlling the state of the VM
+
+To shut it down:
+
+```
+./virtctl stop testvm
+```
+
+To delete an offline Virtual Machine:
+
+```
+oc delete vms testvm
+```
 
 #### Appendix:
 

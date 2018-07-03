@@ -2,7 +2,7 @@
 
 # KubeVirt on top of OpenShift Demo
 
-#### Student connection process
+### Student connection process
 
 In this lab, we are going to leverage a process known as [`oc cluster up`](https://github.com/openshift/origin/blob/master/docs/cluster_up_down.md). `oc cluster up` leverages the local docker daemon and enables us to quickly stand up a local OpenShift Container Platform to start our evaluation. The key result of `oc cluster up` is a reliable, reproducible OpenShift environment to iterate on.
 
@@ -106,7 +106,7 @@ oc get nodes --show-labels
 ```
 
 
-#### Basic OpenShift commands
+### Basic OpenShift commands
 
 Common OpenShift commands can be found below. There are quite a few more though, so be sure to refer to the [OpenShift CLI reference documentation](https://docs.openshift.org/latest/cli_reference/basic_cli_operations.html#cli-reference-basic-cli-operations). Descriptions for the following commands can be found in the CLI guide too.
 
@@ -140,7 +140,7 @@ oc <tab> <tab>
 oc login -u system:admin
 ```
 
-#### Install KubeVirt
+### Install KubeVirt
 
 In this section, download the `kubevirt.yaml` file and explore it.  Then, apply it from the upstream github repo.
 
@@ -179,7 +179,7 @@ chmod -v +x virtctl
 ```
 
 
-#### Create an Offline  VM
+### Create an Offline  VM
 
 Download the VM manifest and explore it.
 
@@ -195,7 +195,7 @@ oc apply -f https://raw.githubusercontent.com/kubevirt/demo/master/manifests/vm.
 ```
 
 
-#### Manage Virtual Machines (optional):
+### Manage Virtual Machines (optional):
 
 To get a list of existing offline Virtual Machines. Note the `running` status.
 

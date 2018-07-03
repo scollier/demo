@@ -49,6 +49,7 @@ Enable oc bash auto-completion
 
 ```
 oc completion bash >> /etc/bash_completion.d/oc_completion
+source /etc/bash_completion.d/oc_completion
 oc <tab> <tab>
 ```
 

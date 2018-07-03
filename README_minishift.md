@@ -54,13 +54,10 @@ Now, let's start our local, containerized OpenShift environment:
 The resulting output should be something of this nature
 
 ```
-Using nsenter mounter for OpenShift volumes
-Using 127.0.0.1 as the server IP
-Starting OpenShift using registry.access.redhat.com/openshift3/ose:v3.9.14 ...
 OpenShift server started.
 
 The server is accessible via web console at:
-    https://<public hostname>:8443
+    https://35.232.205.57.xip.io:8443
 
 You are logged in as:
     User:     developer
@@ -68,6 +65,23 @@ You are logged in as:
 
 To login as administrator:
     oc login -u system:admin
+
+Logged into "https://127.0.0.1:8443" as "system:admin" using existing credentials.
+
+You have access to the following projects and can switch between them with 'oc project <projectname>':
+
+    default
+    kube-dns
+    kube-proxy
+    kube-public
+    kube-service-catalog
+    kube-system
+  * myproject
+    openshift
+    <snip>
+    openshift-web-console
+
+Using project "myproject".
 ```
 
 You should get a lot of feedback about the launch of OpenShift. As long as you don't get any errors you are in good shape.

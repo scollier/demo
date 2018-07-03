@@ -25,12 +25,39 @@ oc label node localhost kubevirt.io/schedulable=true
 oc get nodes --show-labels
 ```
 
+
+#### Basic OpenShift commands
+
+Common OpenShift commands can be found below. There are quite a few more though, so be sure to refer to the [OpenShift CLI reference documentation](https://docs.openshift.org/latest/cli_reference/basic_cli_operations.html#cli-reference-basic-cli-operations). Descriptions for the following commands can be found in the CLI guide too.
+
+```
+oc
+oc whoami
+oc projects
+oc project default
+oc config view
+oc get all
+oc status
+oc get pods
+oc describe pod <pod id>
+oc logs -f router-<rest of pod id>
+oc types
+oc logout
+```
+
+Enable oc bash auto-completion
+
+```
+oc completion bash >> /etc/bash_completion.d/oc_completion
+oc <tab> <tab>
+```
+
+
 #### Log into OpenShift
 
 ```
 oc login -u system:admin
 ```
-
 
 #### Install KubeVirt
 

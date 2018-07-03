@@ -6,7 +6,7 @@
 
 In this lab, we are going to leverage a process known as [`oc cluster up`](https://github.com/openshift/origin/blob/master/docs/cluster_up_down.md). `oc cluster up` leverages the local docker daemon and enables us to quickly stand up a local OpenShift Container Platform to start our evaluation. The key result of `oc cluster up` is a reliable, reproducible OpenShift environment to iterate on.
 
-## Find your GCP Instance
+#### Find your GCP Instance
 This lab is designed to accommodate many students. As a result, each student will be given a VM running on GCP. The naming convention for the lab VMs is:
 
 **student-\<number\>**.labs.sysdeseng.com
@@ -21,7 +21,7 @@ $ wget --no-check-certificate --user student --password ${PASSWD} https://instru
 $ chmod 600 cnv.pem
 ```
 
-## Connecting to your GCP Instance
+#### Connecting to your GCP Instance
 This lab should be performed on **YOUR ASSIGNED AWS INSTANCE** as `cnv-user` unless otherwise instructed.
 
 **_NOTE_**: Please be respectful and only connect to your assigned instance. Every instance for this lab uses the same public key so you could accidentally (or with malicious intent) connect to the wrong system. If you have any issues please inform an instructor.
@@ -30,7 +30,7 @@ This lab should be performed on **YOUR ASSIGNED AWS INSTANCE** as `cnv-user` unl
 $ ssh -i cnv.pem cnv-user@student-<number>.labs.sysdeseng.com
 ```
 
-## Getting Set Up
+#### Getting Set Up
 For the sake of time, some of the required setup has already been taken care of on your GCP VM. For future reference though, the easiest way to get started is to head over to the OpenShift Origin repo on github and follow the "[Getting Started](https://github.com/openshift/origin/blob/master/docs/cluster_up_down.md)" instructions. The instructions cover getting started on Windows, MacOS, and Linux.
 
 All that's left to do is run OpenShift by executing the `openshift.sh` script in your home directory. First, let's take a look at what this script is doing, it's grabbing GCP instance metadata so that it can configure OpenShift to start up properly on GCP:

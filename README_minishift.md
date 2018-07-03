@@ -2,13 +2,93 @@
 
 # KubeVirt on top of OpenShift Demo
 
-This demo will deploy [KubeVirt](https://www.kubevirt.io) on top of [Minishift v1.17.0](https://www.openshift.org/minishift/).
+#### Student connection process
 
-#### Sudo to the root user
+In this lab, we are going to leverage a process known as [`oc cluster up`](https://github.com/openshift/origin/blob/master/docs/cluster_up_down.md). `oc cluster up` leverages the local docker daemon and enables us to quickly stand up a local OpenShift Container Platform to start our evaluation. The key result of `oc cluster up` is a reliable, reproducible OpenShift environment to iterate on.
+
+## Find your GCP Instance
+This lab is designed to accommodate many students. As a result, each student will be given a VM running on GCP. The naming convention for the lab VMs is:
+
+**student-\<number\>**.labs.sysdeseng.com
+
+You will be assigned a number by the instructor.
+
+Retrieve the key from the [instructor host](https://instructor.labs.sysdeseng.com/summit/L1108.pem) so that you can _SSH_ into the instances by accessing the password protected directory. Download the _cnv.pem_ file to your local machine and change the permissions of the file to 600.
 
 ```
-sudo -i
+$ PASSWD=<password from instructor>
+$ wget --no-check-certificate --user student --password ${PASSWD} https://instructor.labs.sysdeseng.com/cnv.pem
+$ chmod 600 cnv.pem
 ```
+
+## Connecting to your GCP Instance
+This lab should be performed on **YOUR ASSIGNED AWS INSTANCE** as `cnv-user` unless otherwise instructed.
+
+**_NOTE_**: Please be respectful and only connect to your assigned instance. Every instance for this lab uses the same public key so you could accidentally (or with malicious intent) connect to the wrong system. If you have any issues please inform an instructor.
+
+```
+$ ssh -i cnv.pem cnv-user@student-<number>.labs.sysdeseng.com
+```
+
+## Getting Set Up
+For the sake of time, some of the required setup has already been taken care of on your GCP VM. For future reference though, the easiest way to get started is to head over to the OpenShift Origin repo on github and follow the "[Getting Started](https://github.com/openshift/origin/blob/master/docs/cluster_up_down.md)" instructions. The instructions cover getting started on Windows, MacOS, and Linux.
+
+All that's left to do is run OpenShift by executing the `openshift.sh` script in your home directory. First, let's take a look at what this script is doing, it's grabbing GCP instance metadata so that it can configure OpenShift to start up properly on GCP:
+
+```
+$ sudo -i
+```
+
+The remaining commands will be run as _root_ on the GCP instance.
+
+```
+cat ~/openshift.sh
+```
+
+Now, let's start our local, containerized OpenShift environment:
+
+```
+~/openshift.sh
+```
+
+The resulting output should be something of this nature
+
+```
+Using nsenter mounter for OpenShift volumes
+Using 127.0.0.1 as the server IP
+Starting OpenShift using registry.access.redhat.com/openshift3/ose:v3.9.14 ...
+OpenShift server started.
+
+The server is accessible via web console at:
+    https://<public hostname>:8443
+
+You are logged in as:
+    User:     developer
+    Password: <any value>
+
+To login as administrator:
+    oc login -u system:admin
+```
+
+You should get a lot of feedback about the launch of OpenShift. As long as you don't get any errors you are in good shape.
+
+OK, so now that OpenShift is available, let's ask for a cluster status & take a look at our running containers:
+
+```
+$ oc version
+$ oc cluster status
+```
+
+As noted before, `oc cluster up` leverages docker for running
+OpenShift. You can see that by checking out the containers and
+images that are managed by docker:
+
+```
+$ sudo docker ps
+$ sudo docker images
+```
+
+We can also check out the OpenShift console. Open a browser and navigate to `https://<public-hostname>:8443`. Be sure to use http*s* otherwise you will get weird web page. Once it loads (and you bypass the certificate errors), you can log in to the console using the default developer username (use any password).
 
 #### Enable nesting and label your node.
 

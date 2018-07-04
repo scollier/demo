@@ -199,7 +199,7 @@ oc cluster status | grep Web
 
 Open that URL in a browser, log in as the `developer` user with any password.
 
-image::images/openshift-console-login.png
+[openshift](images/openshift-console-login.png)
 
 Explore the kube-system project by clicking on the `View All` link in the right hand navigation pane.
 

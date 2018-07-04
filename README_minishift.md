@@ -210,7 +210,7 @@ Browse to the `kube-system` project and explore the objects. Click on the differ
 ![openshift](images/openshift-console-kube-system.png)
 
 #### Install virtctl
-This tool provides quick access to the serial and graphical ports of a VM, and handle start/stop operations.
+Return to the CLI and install virtctl. This tool provides quick access to the serial and graphical ports of a VM, and handle start/stop operations.
 
 ```
 curl -L -o virtctl https://github.com/kubevirt/kubevirt/releases/download/$VERSION/virtctl-$VERSION-linux-amd64

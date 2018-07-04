@@ -203,11 +203,11 @@ Open that URL in a browser, log in as the `developer` user with any password.
 
 Explore the kube-system project by clicking on the `View All` link in the right hand navigation pane.
 
-image::images/openshift-console-view-all.png
+![openshift](images/openshift-console-view-all.png)
 
 Browse to the `kube-system` project and explore the objects. Click on the different objects, explore the environment.
 
-image::images/openshift-console-kube-system.png
+![openshift](images/openshift-console-kube-system.png)
 
 #### Install virtctl
 This tool provides quick access to the serial and graphical ports of a VM, and handle start/stop operations.

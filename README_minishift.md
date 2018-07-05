@@ -13,21 +13,20 @@ This lab is designed to accommodate many students. As a result, each student wil
 
 You will be assigned a number by the instructor.
 
-Retrieve the key from the [instructor host](https://instructor.labs.sysdeseng.com/summit/L1108.pem) so that you can _SSH_ into the instances by accessing the password protected directory. Download the _cnv.pem_ file to your local machine and change the permissions of the file to 600.
+Retrieve the key from the [instructor host](https://cnv-tlv-web-svr.e2e.bos.redhat.com/cnv_rsa) so that you can _SSH_ into the instances by accessing the password protected directory. Download the _cnv_rsa_ file to your local machine and change the permissions of the file to 600.
 
 ```
-$ PASSWD=<password from instructor>
-$ wget --no-check-certificate --user student --password ${PASSWD} https://instructor.cnvlab.gce.sysdeseng.com/cnv.pem
+wget http://cnv-tlv-web-svr.e2e.bos.redhat.com/cnv_rsa
 $ chmod 600 cnv.pem
 ```
 
 #### Connecting to your GCP Instance
-This lab should be performed on **YOUR ASSIGNED GCP INSTANCE** as `cnv-user` unless otherwise instructed.
+This lab should be performed on **YOUR ASSIGNED GCP INSTANCE** as `cnv` unless otherwise instructed.
 
 **_NOTE_**: Please be respectful and only connect to your assigned instance. Every instance for this lab uses the same public key so you could accidentally (or with malicious intent) connect to the wrong system. If you have any issues please inform an instructor.
 
 ```
-$ ssh -i cnv.pem cnv-user@student-<number>.cnvlab.gce.sysdeseng.com
+$ ssh -i cnv.pem cnv@student-<number>.cnvlab.gce.sysdeseng.com
 ```
 
 #### Getting Set Up

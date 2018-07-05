@@ -13,7 +13,7 @@ This lab is designed to accommodate many students. As a result, each student wil
 
 You will be assigned a number by the instructor.
 
-Retrieve the key from the [instructor host](https://cnv-tlv-web-svr.e2e.bos.redhat.com/cnv_rsa) so that you can _SSH_ into the instances by accessing the password protected directory. Download the _cnv_rsa_ file to your local machine and change the permissions of the file to 600.
+Retrieve the key from the [instructor host](https://cnv-tlv-web-svr.e2e.bos.redhat.com/cnv_rsa) so that you can _SSH_ into the instances by accessing the password protected directory. Download the `cnv_rsa`  file to your local machine and change the permissions of the file to 600. This web server is not public. You must be signed into the Red Hat VPN to access the key. Let an instructor know if you have any questions here.
 
 ```
 wget http://cnv-tlv-web-svr.e2e.bos.redhat.com/cnv_rsa

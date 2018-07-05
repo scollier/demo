@@ -148,6 +148,63 @@ oc login -u system:admin
 oc whoami
 ```
 
+### Deploy a container-based application to OpenShift
+
+We are going to use the existing project `myproject`.
+
+#### Move to project and add template
+
+```
+oc project myproject
+oc create -f https://raw.githubusercontent.com/scollier/demo/training/manifests/app-template.yaml
+```
+
+
+#### Deploy Application
+
+The command below will deploy the application [ara](https://github.com/openstack/ara).
+
+```
+oc new-app --template ara
+```
+The following objects will be created:
+
+- BuildConfig
+- ImageStream
+- DeploymentConfig
+- Route
+- Service
+
+
+#### Review Objects
+
+
+Let's show our `BuildConfig` and watch the container build log.
+
+```
+oc get bc
+oc logs -f bc/ara
+```
+
+Once that is complete we can confirm that our `DeploymentConfig` has rolled out.
+
+
+```
+oc get dc
+oc rollout status dc/ara
+```
+
+Now let's take a look at the `Service` and `Route`.
+
+```
+oc get svc
+oc describe svc ara
+oc get route
+oc describe route ara
+```
+
+After deploying a virtual machine we will test connectivity using `curl`.
+
 ### Install KubeVirt
 
 In this section, download the `kubevirt.yaml` file and explore it.  Then, apply it from the upstream github repo.
@@ -263,6 +320,13 @@ Connect to the serial console of the Cirros VM.
 
 ```
 ./virtctl console testvm
+```
+##### Communication between application and virtual machine
+
+While in the console of the `testvm` let's run `curl` to confirm our virtual machine
+can access the `Service` of the application deployment.
+```
+curl ara.myproject.svc.cluster.local:8080
 ```
 
 Connect to the graphical display

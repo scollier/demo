@@ -9,7 +9,7 @@ In this lab, we are going to leverage a process known as [`oc cluster up`](https
 #### Find your GCP Instance
 This lab is designed to accommodate many students. As a result, each student will be given a VM running on GCP. The naming convention for the lab VMs is:
 
-**student-\<number\>**.labs.sysdeseng.com
+**student-\<number\>**.cnvlab.gce.sysdeseng.com
 
 You will be assigned a number by the instructor.
 
@@ -17,17 +17,17 @@ Retrieve the key from the [instructor host](https://instructor.labs.sysdeseng.co
 
 ```
 $ PASSWD=<password from instructor>
-$ wget --no-check-certificate --user student --password ${PASSWD} https://instructor.labs.sysdeseng.com/cnv.pem
+$ wget --no-check-certificate --user student --password ${PASSWD} https://instructor.cnvlab.gce.sysdeseng.com/cnv.pem
 $ chmod 600 cnv.pem
 ```
 
 #### Connecting to your GCP Instance
-This lab should be performed on **YOUR ASSIGNED AWS INSTANCE** as `cnv-user` unless otherwise instructed.
+This lab should be performed on **YOUR ASSIGNED GCP INSTANCE** as `cnv-user` unless otherwise instructed.
 
 **_NOTE_**: Please be respectful and only connect to your assigned instance. Every instance for this lab uses the same public key so you could accidentally (or with malicious intent) connect to the wrong system. If you have any issues please inform an instructor.
 
 ```
-$ ssh -i cnv.pem cnv-user@student-<number>.labs.sysdeseng.com
+$ ssh -i cnv.pem cnv-user@student-<number>.cnvlab.gce.sysdeseng.com
 ```
 
 #### Getting Set Up
@@ -135,6 +135,7 @@ oc logout
 Enable oc bash auto-completion
 
 ```
+oc <tab> <tab>
 oc completion bash >> /etc/bash_completion.d/oc_completion
 source /etc/bash_completion.d/oc_completion
 oc <tab> <tab>
@@ -210,11 +211,12 @@ Browse to the `kube-system` project and explore the objects. Click on the differ
 ![openshift](images/openshift-console-kube-system.png)
 
 #### Install virtctl
-Return to the CLI and install virtctl. This tool provides quick access to the serial and graphical ports of a VM, and handle start/stop operations.
+Return to the CLI and install virtctl. This tool provides quick access to the serial and graphical ports of a VM, and handle start/stop operations. Also run `virtctl` to get an idea of it's options.
 
 ```
 curl -L -o virtctl https://github.com/kubevirt/kubevirt/releases/download/$VERSION/virtctl-$VERSION-linux-amd64
 chmod -v +x virtctl
+./virtctl
 ```
 
 
@@ -258,7 +260,7 @@ oc get vms -o yaml testvm
 
 #### Accessing VMs (serial console & spice)
 
-Connect to the serial console
+Connect to the serial console of the Cirros VM.
 
 ```
 ./virtctl console testvm

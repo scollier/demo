@@ -17,7 +17,7 @@ Retrieve the key from the [instructor host](https://cnv-tlv-web-svr.e2e.bos.redh
 
 ```
 wget http://cnv-tlv-web-svr.e2e.bos.redhat.com/cnv_rsa
-$ chmod 600 cnv.pem
+chmod 600 cnv.pem
 ```
 
 #### Connecting to your GCP Instance
@@ -26,7 +26,7 @@ This lab should be performed on **YOUR ASSIGNED GCP INSTANCE** as `cnv` unless o
 **_NOTE_**: Please be respectful and only connect to your assigned instance. Every instance for this lab uses the same public key so you could accidentally (or with malicious intent) connect to the wrong system. If you have any issues please inform an instructor.
 
 ```
-$ ssh -i cnv.pem cnv@student-<number>.cnvlab.gce.sysdeseng.com
+ssh -i cnv.pem cnv@student-<number>.cnvlab.gce.sysdeseng.com
 ```
 
 #### Getting Set Up
@@ -35,7 +35,7 @@ For the sake of time, some of the required setup has already been taken care of 
 All that's left to do is run OpenShift by executing the `openshift.sh` script in your home directory. First, let's take a look at what this script is doing, it's grabbing GCP instance metadata so that it can configure OpenShift to start up properly on GCP:
 
 ```
-$ sudo -i
+sudo -i
 ```
 
 The remaining commands will be run as _root_ on the GCP instance. Review the `openshift.sh` file. Notice how the GCP metadata is parced to gather the external IP address to pass to `oc cluster up`. Next, notice the options that `oc cluster up` is being started with.

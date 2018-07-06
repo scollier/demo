@@ -143,13 +143,18 @@ Persistent volumes are at host directory /root/openshift.local.clusterup/openshi
 Data will be discarded when cluster is destroyed
 ```
 
-Also note how we are using local paths to provide storage
+A PersistentVolume (PV) is a piece of storage in the cluster that has been provisioned by an administrator
 
 ```
 oc get pv 
-oc get pv pv0001 -o yaml
 ```
 
+By examining hostPath section of one of the existing PVS, we can see how we are using local paths to provide such storage
+The *-o yaml* flag allows us to gather full information for the corrresponding object
+
+```
+oc get pv pv0001 -o yaml
+```
 
 As noted before, `oc cluster up` leverages docker for running
 OpenShift. You can see that by checking out the containers and
@@ -345,7 +350,7 @@ chmod -v +x virtctl
 
 ### Create a Virtual Machine
 
-Download the VM manifest and explore it. Note it uses a registry disk and as such doesn't persist data. Such registry disks currently exist for alpine, cirros and fedora.
+Download the VM manifest and explore it. Note it uses a [registry disk](https://kubevirt.io/user-guide/#/workloads/virtual-machines/disks-and-volumes?id=registrydisk) and as such doesn't persist data. Such registry disks currently exist for alpine, cirros and fedora.
 
 ```
 wget https://raw.githubusercontent.com/kubevirt/demo/master/manifests/vm.yaml
@@ -413,7 +418,7 @@ To shut it down:
 ./virtctl stop testvm
 ```
 
-To delete an offline Virtual Machine:
+To delete a Virtual Machine:
 
 ```
 oc delete vms testvm
@@ -423,7 +428,7 @@ oc delete vms testvm
 
 [CDI](https://github.com/kubevirt/containerized-data-importer) is an utility designed to import Virtual Machine images for use with Kubevirt. 
 
-At a high level, a persistent volume claim (PVC) is created. A custom controller watches for importer specific claims, and when discovered, starts an import process to create a raw image named *disk.img* with the desired content into the associated PVC 
+At a high level, a persistent volume claim (Pvc) is created. A custom controller watches for importer specific claims, and when discovered, starts an import process to create a raw image named *disk.img* with the desired content into the associated Pvc
 
 #### Install CDI
 
@@ -442,14 +447,14 @@ oc get pods --namespace=golden-images
 
 #### Use CDI
 
-As an example, we will import a fedora28 cloud image as a pvc and launch a virtual machine making use of it
+As an example, we will import a Fedora28 Cloud Image as a Pvc and launch a Virtual Machine making use of it
 
 ```
 oc project myproject
 oc create -f pvc_fedora.yml
 ```
 
-This will create the pvc with a proper annotation so that CDI controller detects it and launches an importer pod to gather the image specified in the *kubevirt.io/storage.import.endpoint* annotation
+This will create the Pvc with a proper annotation so that CDI controller detects it and launches an importer pod to gather the image specified in the *kubevirt.io/storage.import.endpoint* annotation
 
 ```
 oc get pvc fedora -o yaml
@@ -458,10 +463,15 @@ oc get pod
 oc logs importer-fedora-pnbqh
 ```
 
-Once the importer pod completes, this PVC is ready for use in kubevirt.
+Once the importer pod completes, this Pvc is ready for use in kubevirt.
 
-Let us create a VM making use of it. Note that we priorly change the yaml definition of this VM to inject the default public key of root user in the GCP VM.
+Let's create a Virtual Machine making use of it. Review the file *vm1_pvc.yml*
 
+```
+cat ~/vm1_pvc.yml
+```
+
+We change the yaml definition of this Virtual Machine to inject the default public key of root user in the GCP Virtual Machine.
 
 ```
 PUBKEY=`cat ~/.ssh/id_rsa.pub`
@@ -469,41 +479,26 @@ sed -i "s%ssh-rsa.*%$PUBKEY%" vm1_pvc.yml
 oc create -f vm1_pvc.yml
 ```
 
-This will create and start a VM named vm1. We can use the following command to check our VM is running and to gather its ip.
+This will create and start a Virtual Machine named vm1. We can use the following command to check our Virtual Machine is running and to gather its ip.
 
 ```
 oc get pod -o wide
 ```
 
-Since we are running an all in one setup, the corresponding VM is actually running on the same node, we can check its qemu process
+Since we are running an all in one setup, the corresponding Virtual Machine is actually running on the same node, we can check its qemu process
 
 ```
 ps -ef | grep qemu | grep vm1
 ```
 
-Finally, use the gathered ip to connect to the VM, create some files, stop and restart the VM with virtctl and check how data persists
+Finally, use the gathered ip to connect to the Virtual Machine, create some files, stop and restart the Virtual Machine with virtctl and check how data persists
 
 ```
 ssh fedora@VM_IP
 ```
 
-## Conclusion
-
-Now that you have completed the lab, lets review what was covered here -
-
-* Deployed OCP with `oc cluster up`
-* Explored the environment and some basic OpenShift commands
-* Deployed an application on OpenShift
-* Deployed and explored KubeVirt
-* Explored OCP web console
-* Deployed a virtual machine on OCP
-* Accessed the virtual machine
-* Deployed CDI
-
-Thanks for participating and don't forget to submit that PR if you find issues.
-
-
 ## APBs and the Service Catalog
+
 You can provision KubeVirt using APBs through the Service Catalog.
 
 Navigate to `https://student<number>.cnvlab.gce.sysdeseng.com:8443` in your browser.
@@ -525,3 +520,19 @@ Enter the namespace where you launched kubevirt and watch it get provisioned.
 Click the `Virtualization` tab to see any VM templates you want to create.
 
 ![virt-tab](images/virtualization-tab.png)
+
+## Conclusion
+
+Now that you have completed the lab, let's review what was covered here -
+
+* Deployed OCP with `oc cluster up`
+* Explored the environment and some basic OpenShift commands
+* Deployed an application on OpenShift
+* Deployed and explored KubeVirt
+* Explored OCP web console
+* Deployed a virtual machine on OCP
+* Accessed the virtual machine
+* Deployed CDI
+* Deployed APB
+*
+Thanks for participating and don't forget to submit that PR if you find issues.

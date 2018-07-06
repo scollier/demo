@@ -188,13 +188,13 @@ oc types
 oc logout
 ```
 
-Enable oc bash auto-completion
+Enable oc bash auto-completion. Try to use tab completion with the `oc` command before and after the next activity.
 
 ```
-oc <tab> <tab>
+oc # Try tabbing for auto-completion now
 oc completion bash >> /etc/bash_completion.d/oc_completion
 source /etc/bash_completion.d/oc_completion
-oc <tab> <tab>
+oc # Try tabbing for auto-completion now
 ```
 
 
@@ -260,8 +260,6 @@ oc get route
 oc describe route ara
 ```
 
-After deploying a virtual machine we will test connectivity using `curl`. This will be covered in a later section.
-
 ## Install KubeVirt
 
 In this section, download the `kubevirt.yaml` file and explore it.  Then, apply it from the upstream github repo.
@@ -302,20 +300,20 @@ Review the objects that KubeVirt added.
 
 ```
 oc get sa --all-namespaces | grep kubevirt
-oc describe sa kubevirt-apiserver --namespace=kube-system
+oc describe sa kubevirt-apiserver --namespace=kube-system # Please feel free to explore the other objects as well. Get a feel for the expected output.
 oc get pods --namespace=kube-system
-oc describe pod -l kubevirt.io=virt-handler
+oc describe pod -l kubevirt.io=virt-handler --namespace=kube-system
 # review the files on the root of the filesystem of the pod, see the virt-handler executable, after replacing the pod name with yours
 oc exec -it virt-handler-n9pxj --namespace=kube-system ls /  
 oc get svc --namespace=kube-system
-oc describve  svc virt-api --namespace=kube-system
+oc describe  svc virt-api --namespace=kube-system
 ```
 
 There are other services and objects to take a look at.
 
 To review the objects through the OpenShift web console, access the console and log in as the `developer` user at `https://student<number>.cnvlab.gce.sysdeseng.com:8443`
 
-Open that URL in a browser, log in as the `developer` user with any password.
+Open that URL in a browser, log in as the `developer` user with a password of `developer`.
 
 ![openshift](images/openshift-console-login.png)
 
@@ -334,7 +332,7 @@ Return to the CLI and install virtctl. This tool provides quick access to the se
 ```
 curl -L -o virtctl https://github.com/kubevirt/kubevirt/releases/download/$VERSION/virtctl-$VERSION-linux-amd64
 chmod -v +x virtctl
-./virtctl
+./virtctl --help
 ```
 
 ## Use KubeVirt
@@ -380,7 +378,7 @@ oc get vms -o yaml testvm
 
 ### Accessing VMs (serial console & spice)
 
-Connect to the serial console of the Cirros VM.
+Connect to the serial console of the Cirros VM. Then disconnect from the virtual machine console `ctrl+]`.
 
 ```
 ./virtctl console testvm
@@ -394,8 +392,10 @@ can access the `Service` of the application deployment.
 curl ara.myproject.svc.cluster.local:8080
 ```
 
-Connect to the graphical display
-Note: Requires `remote-viewer` from the `virt-viewer` package.
+Connect to the graphical display.
+
+Note: Requires `remote-viewer` from the `virt-viewer` package. This is out of scope for this lab. 
+
 ```
 ./virtctl vnc testvm
 ```
@@ -453,9 +453,9 @@ oc get pod
 oc logs importer-fedora-pnbqh
 ```
 
-Once the importer pod completes, this pvc is ready for use in kubevirt.
+Once the importer pod completes, this PVC is ready for use in kubevirt.
 
-Let's create a vm making use of it. Note that we priorly change the yaml definition of this vm to inject the default public key of root user in the GCP vm
+Let us create a vm making use of it. Note that we priorly change the yaml definition of this vm to inject the default public key of root user in the GCP vm.
 
 
 ```
@@ -470,7 +470,7 @@ This will create and start a vm named vm1. We can use the following command to c
 oc get pod -o wide
 ```
 
-Since we're running an all in one setup, the corresponding vm is actually running on the same node, we can check its qemu process
+Since we are running an all in one setup, the corresponding VM is actually running on the same node, we can check its qemu process
 
 ```
 ps -ef | grep qemu | grep vm1

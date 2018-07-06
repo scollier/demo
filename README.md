@@ -231,7 +231,7 @@ oc get route
 oc describe route ara
 ```
 
-After deploying a virtual machine we will test connectivity using `curl`.
+After deploying a virtual machine we will test connectivity using `curl`. This will be covered in a later section.
 
 ## Install KubeVirt
 

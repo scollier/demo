@@ -24,7 +24,7 @@ objects:
       git:
         uri: "https://github.com/jcpowermac/openshift-presentation"
         ref: "master"
-      contextDir: objects/buildconfig/docker
+      contextDir: lab/ara 
       type: Docker
     triggers:
     - type: ConfigChange

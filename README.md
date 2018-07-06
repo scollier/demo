@@ -178,7 +178,7 @@ oc whoami
 
 ### Deploy a container-based application to OpenShift
 
-We are going to use the existing project `myproject`.
+The purpose of this section is to deploy an example application on top of OpenShift and demonstrate how containers and virtual machines can be orchestrated side by side. We are going to use the existing project `myproject`.
 
 #### Move to project and add template
 

@@ -76,7 +76,7 @@ The resulting output should be something of this nature:
 OpenShift server started.
 
 The server is accessible via web console at:
-    https://student-<number>.cnvlab.gce.sysdeseng.com:8443
+    https://student<number>.cnvlab.gce.sysdeseng.com:8443
 
 You are logged in as:
     User:     developer
@@ -129,7 +129,7 @@ docker ps
 docker images
 ```
 
-We can also check out the OpenShift console. Open a browser and navigate to `https://student-<number>.cnvlab.gce.sysdeseng.com:8443`. Be sure to use http*s* otherwise you will get weird web page. Once it loads (and you bypass the certificate errors), you can log in to the console using the default developer username (use any password).
+We can also check out the OpenShift console. Open a browser and navigate to `https://student<number>.cnvlab.gce.sysdeseng.com:8443`. Be sure to use http*s* otherwise you will get weird web page. Once it loads (and you bypass the certificate errors), you can log in to the console using the default developer username (use any password).
 
 ### Label your node.
 
@@ -284,7 +284,7 @@ oc describve  svc virt-api --namespace=kube-system
 
 There are other services and objects to take a look at.
 
-To review the objects through the OpenShift web console, access the console and log in as the `developer` user at `https://student-<number>.cnvlab.gce.sysdeseng.com:8443`
+To review the objects through the OpenShift web console, access the console and log in as the `developer` user at `https://student<number>.cnvlab.gce.sysdeseng.com:8443`
 
 Open that URL in a browser, log in as the `developer` user with any password.
 

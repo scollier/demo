@@ -9,7 +9,7 @@ In this lab, we are going to leverage a process known as [`oc cluster up`](https
 ### Find your GCP Instance
 This lab is designed to accommodate many students. As a result, each student will be given a VM running on GCP with nested virtualization, 4 vcpus and 12Gb of RAM. The naming convention for the lab VMs is:
 
-**student-\<number\>**.cnvlab.gce.sysdeseng.com
+**student\<number\>**.cnvlab.gce.sysdeseng.com
 
 You will be assigned a number by the instructor.
 
@@ -26,7 +26,7 @@ This lab should be performed on **YOUR ASSIGNED GCP INSTANCE** as `cnv` user unl
 **_NOTE_**: Please be respectful and only connect to your assigned instance. Every instance for this lab uses the same public key so you could accidentally (or with malicious intent) connect to the wrong system. If you have any issues, please inform an instructor.
 
 ```
-ssh -i cnv_rsa cnv@student-<number>.cnvlab.gce.sysdeseng.com
+ssh -i cnv_rsa cnv@student<number>.cnvlab.gce.sysdeseng.com
 ```
 
 ## Getting Set Up

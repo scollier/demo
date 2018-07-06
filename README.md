@@ -361,6 +361,8 @@ Apply the manifest to OpenShift.
 
 ```
 oc apply -f https://raw.githubusercontent.com/kubevirt/demo/master/manifests/vm.yaml
+ virtualmachine.kubevirt.io "testvm" created
+ virtualmachineinstancepreset.kubevirt.io "small" created
 ```
 
 To start a Virtual Machine you can use:

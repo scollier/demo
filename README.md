@@ -455,7 +455,7 @@ oc logs importer-fedora-pnbqh
 
 Once the importer pod completes, this PVC is ready for use in kubevirt.
 
-Let us create a vm making use of it. Note that we priorly change the yaml definition of this vm to inject the default public key of root user in the GCP vm.
+Let us create a VM making use of it. Note that we priorly change the yaml definition of this VM to inject the default public key of root user in the GCP VM.
 
 
 ```
@@ -464,7 +464,7 @@ sed -i "s%ssh-rsa.*%$PUBKEY%" vm1_pvc.yml
 oc create -f vm1_pvc.yml
 ```
 
-This will create and start a vm named vm1. We can use the following command to check our vm is running and to gather its ip.
+This will create and start a VM named vm1. We can use the following command to check our VM is running and to gather its ip.
 
 ```
 oc get pod -o wide
@@ -476,7 +476,7 @@ Since we are running an all in one setup, the corresponding VM is actually runni
 ps -ef | grep qemu | grep vm1
 ```
 
-Finally, use the gathered ip to connect to the vm, create some files, stop and restart the vm with virtctl and check how data persists
+Finally, use the gathered ip to connect to the VM, create some files, stop and restart the VM with virtctl and check how data persists
 
 ```
 ssh fedora@VM_IP

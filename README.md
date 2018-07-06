@@ -42,6 +42,12 @@ First, let's escalate privileges. The remaining commands will be run as _root_ o
 sudo -i
 ```
 
+Create an SSH key that you will be using later.
+
+```
+ssh-keygen -t rsa -N '' -f /root/.ssh/id_rsa
+```
+
 Review the `requirements.sh` file. This script does the following:
 
 - install *docker*, enable and start it as a service

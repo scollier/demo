@@ -363,6 +363,11 @@ Apply the manifest to OpenShift.
 oc apply -f https://raw.githubusercontent.com/kubevirt/demo/master/manifests/vm.yaml
 ```
 
+To start a Virtual Machine you can use:
+
+```
+./virtctl start testvm
+```
 
 ### Manage Virtual Machines (optional):
 
@@ -373,11 +378,6 @@ oc get vms
 oc get vms -o yaml testvm
 ```
 
-To start a Virtual Machine you can use:
-
-```
-./virtctl start testvm
-```
 
 To get a list of existing Virtual Machines. Note the `running` status.
 
@@ -393,6 +393,7 @@ Connect to the serial console of the Cirros VM. Then disconnect from the virtual
 ```
 ./virtctl console testvm
 ```
+Hit return/enter a few times and login with the displayed username and password.
 
 ### Communication Between Application and Virtual Machine
 

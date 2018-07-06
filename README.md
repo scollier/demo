@@ -2,7 +2,7 @@
 
 # KubeVirt on top of OpenShift Demo
 
-## Student connection process
+## Student Connection Process
 
 In this lab, we are going to leverage a process known as [`oc cluster up`](https://github.com/openshift/origin/blob/master/docs/cluster_up_down.md). `oc cluster up` leverages the local docker daemon and enables us to quickly stand up a local OpenShift Container Platform to start our evaluation. The key result of `oc cluster up` is a reliable, reproducible OpenShift environment to iterate on.
 
@@ -122,7 +122,25 @@ OK, so now that OpenShift is available, let's ask for a cluster status & take a 
 
 ```
 oc version
+oc v3.10.0-rc.0+c20e215
+kubernetes v1.10.0+b81c8f8
+features: Basic-Auth GSSAPI Kerberos SPNEGO
+
+Server https://127.0.0.1:8443
+openshift v3.10.0-rc.0+ad6a1da-30
+kubernetes v1.10.0+b81c8f8
+```
+
+The important item from the `oc cluster status` command output is the `Web console URL`.
+
+```
 oc cluster status
+Web console URL: https://student002.cnvlab.gce.sysdeseng.com:8443/console/
+
+Config is at host directory 
+Volumes are at host directory 
+Persistent volumes are at host directory /root/openshift.local.clusterup/openshift.local.pv
+Data will be discarded when cluster is destroyed
 ```
 
 Also note how we are using local paths to provide storage
@@ -142,9 +160,7 @@ docker ps
 docker images
 ```
 
-We can also check out the OpenShift console. Open a browser and navigate to `https://student<number>.cnvlab.gce.sysdeseng.com:8443`. Be sure to use http*s* otherwise you will get weird web page. Once it loads (and you bypass the certificate errors), you can log in to the console using the default developer username (use any password).
-
-### Label your node.
+### Label your Node.
 
 Label your node so the virt-launcher pod can be scheduled correctly. Confirm the label was applied.
 
@@ -153,7 +169,7 @@ oc label node localhost kubevirt.io/schedulable=true
 oc get nodes --show-labels
 ```
 
-## Basic OpenShift commands
+## Basic OpenShift Commands
 
 Common OpenShift commands can be found below. There are quite a few more though, so be sure to refer to the [OpenShift CLI reference documentation](https://docs.openshift.org/latest/cli_reference/basic_cli_operations.html#cli-reference-basic-cli-operations). Descriptions for the following commands can be found in the CLI guide too.
 
@@ -189,11 +205,11 @@ oc login -u system:admin
 oc whoami
 ```
 
-### Deploy a container-based application to OpenShift
+### Deploy a Container-based Application to OpenShift
 
 The purpose of this section is to deploy an example application on top of OpenShift and demonstrate how containers and virtual machines can be orchestrated side by side. We are going to use the existing project `myproject`.
 
-#### Move to project and add template
+#### Move to Project and Add Template
 
 ```
 oc project myproject
@@ -321,7 +337,7 @@ chmod -v +x virtctl
 ./virtctl
 ```
 
-## Use kubevirt
+## Use KubeVirt
 
 
 ### Create a Virtual Machine
@@ -370,7 +386,7 @@ Connect to the serial console of the Cirros VM.
 ./virtctl console testvm
 ```
 
-### Communication between application and virtual machine
+### Communication Between Application and Virtual Machine
 
 While in the console of the `testvm` let's run `curl` to confirm our virtual machine
 can access the `Service` of the application deployment.
@@ -384,7 +400,7 @@ Note: Requires `remote-viewer` from the `virt-viewer` package.
 ./virtctl vnc testvm
 ```
 
-### Controlling the state of the VM
+### Controlling the State of the VM
 
 To shut it down:
 
@@ -398,13 +414,13 @@ To delete an offline Virtual Machine:
 oc delete vms testvm
 ```
 
-## Experiment with Cdi
+## Experiment with CDI
 
-[Cdi](https://github.com/kubevirt/containerized-data-importer) is an utility designed to import Virtual Machine images for use with Kubevirt. 
+[CDI](https://github.com/kubevirt/containerized-data-importer) is an utility designed to import Virtual Machine images for use with Kubevirt. 
 
 At a high level, a persistent volume claim (PVC) is created. A custom controller watches for importer specific claims, and when discovered, starts an import process to create a raw image named *disk.img* with the desired content into the associated PVC 
 
-#### Install Cdi
+#### Install CDI
 
 to install the components, we will execute `cdi.sh` script in root home directory. Be sure to review the contents of this file first
 
@@ -419,7 +435,7 @@ oc get project| grep golden
 oc get pods --namespace=golden-images
 ```
 
-#### Use Cdi
+#### Use CDI
 
 As an example, we will import a fedora28 cloud image as a pvc and launch a virtual machine making use of it
 
@@ -428,7 +444,7 @@ oc project myproject
 oc create -f pvc_fedora.yml
 ```
 
-This will create the pvc with a proper annotation so that cdi controller detects it and launches an importer pod to gather the image specified in the *kubevirt.io/storage.import.endpoint* annotation
+This will create the pvc with a proper annotation so that CDI controller detects it and launches an importer pod to gather the image specified in the *kubevirt.io/storage.import.endpoint* annotation
 
 ```
 oc get pvc fedora -o yaml

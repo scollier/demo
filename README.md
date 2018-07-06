@@ -534,5 +534,5 @@ Now that you have completed the lab, let's review what was covered here -
 * Accessed the virtual machine
 * Deployed CDI
 * Deployed APB
-*
+
 Thanks for participating and don't forget to submit that PR if you find issues.

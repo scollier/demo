@@ -64,13 +64,13 @@ As GCP instances might randomly experience network issues at boot, double check 
 
 All that's left to do is run OpenShift by executing the `openshift.sh` script in root home directory.
 
-the remaining commands will be run as _root_ on the GCP instance. Review the `openshift.sh` file. Notice how additional flags are passed to `oc cluster up` to enable additional features like ansible service broker and to allow public access.
+The remaining commands will be run as _root_ on the GCP instance. Review the `openshift.sh` file. Notice how additional flags are passed to `oc cluster up` to enable additional features like ansible service broker and to allow public access.
 
 ```
 cat ~/openshift.sh
 ```
 
-Now, let's start our local, containerized OpenShift environment.
+Now, let's start our local, containerized OpenShift environment. Running this script could take between 3-5 minutes.
 
 ```
 ~/openshift.sh
@@ -82,7 +82,7 @@ The resulting output should be something of this nature:
 OpenShift server started.
 
 The server is accessible via web console at:
-    https://student<number>.cnvlab.gce.sysdeseng.com:8443
+    https://student002.cnvlab.gce.sysdeseng.com:8443
 
 You are logged in as:
     User:     developer
@@ -103,13 +103,20 @@ You have access to the following projects and can switch between them with 'oc p
     kube-system
   * myproject
     openshift
-    <snip>
+    openshift-apiserver
+    openshift-automation-service-broker
+    openshift-controller-manager
+    openshift-core-operators
+    openshift-infra
+    openshift-node
     openshift-web-console
 
 Using project "myproject".
+origin
+cluster role "cluster-admin" added: "developer"
 ```
 
-You should get a lot of feedback about the launch of OpenShift. As long as you don't get any errors you are in good shape.
+The expected results here are that you recieved quite a bit of output. If you received something other than what is reported above, notify an instructor.
 
 OK, so now that OpenShift is available, let's ask for a cluster status & take a look at our running containers:
 

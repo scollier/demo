@@ -401,6 +401,13 @@ can access the `Service` of the application deployment.
 ```
 curl ara.myproject.svc.cluster.local:8080
 ```
+The expected output from the curl command should be:
+```
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<title>Redirecting...</title>
+<h1>Redirecting...</h1>
+<p>You should be redirected automatically to target URL: <a href="/about/">/about/</a>.  If not click the link.
+```
 
 Connect to the graphical display.
 
